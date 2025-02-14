@@ -2,11 +2,12 @@ import "@babylonjs/loaders/glTF";
 // import * as BABYLON from "babylonjs";
 import Image from "next/image";
 import { CardboardBoxThumbnail } from "../../public/images/thumbnails";
+import BabylonCanvas from "@/components/common/babylonCanvas";
 
 export default function Home() {
   return (
-    <div>
-      <div className="bg-gray-300 max-w-40 h-dvh">
+    <div className="flex w-full h-full">
+      <div className="bg-gray-300 min-w-40 h-dvh">
         tool bar
         <div>
           <Image
@@ -17,6 +18,7 @@ export default function Home() {
           />
         </div>
       </div>
+      <BabylonCanvas />
     </div>
   );
 }
