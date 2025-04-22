@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import * as BABYLON from "@babylonjs/core";
-import "@babylonjs/loaders";
+import { useEffect, useRef, useState } from 'react';
+import * as BABYLON from '@babylonjs/core';
+import '@babylonjs/loaders';
 
 export default function BabylonCanvas() {
   const [scene, setScene] = useState<BABYLON.Scene | null>(null);
   const bablyonCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { Engine, Scene, Vector3, HemisphericLight, ArcRotateCamera, Color4 } =
-    BABYLON;
+  const { Engine, Scene, Vector3, HemisphericLight, ArcRotateCamera, Color4 } = BABYLON;
 
   useEffect(() => {
     if (window) {
@@ -16,10 +15,10 @@ export default function BabylonCanvas() {
           scene.getEngine().resize();
         }
       };
-      window.addEventListener("resize", resize);
+      window.addEventListener('resize', resize);
 
       return () => {
-        window.removeEventListener("resize", resize);
+        window.removeEventListener('resize', resize);
       };
     }
   }, [scene]);
@@ -32,7 +31,7 @@ export default function BabylonCanvas() {
     scene.clearColor = new Color4(255, 255, 255);
     // const cam = new FreeCamera("first camera", new Vector3(0, 1, -5), scene);
     const camera = new ArcRotateCamera(
-      "camera",
+      'camera',
       Math.PI / 1.5, // 초기 회전
       Math.PI / 3, // 초기 높이
       2, // 줌 거리
@@ -47,15 +46,10 @@ export default function BabylonCanvas() {
     // camera.panningSensibility = -camera.panningSensibility;
     // camera.angularSensibilityX *= -1; // X축 반전
     // camera.angularSensibilityY *= -1;
-    const light = new HemisphericLight("light", new Vector3(3, 10, 0), scene);
+    const light = new HemisphericLight('light', new Vector3(3, 10, 0), scene);
     light.intensity = 3;
     const assetsManager = new BABYLON.AssetsManager(scene);
-    const meshTask = assetsManager.addMeshTask(
-      "loadModel",
-      "",
-      "/models/",
-      "box.glb"
-    );
+    const meshTask = assetsManager.addMeshTask('loadModel', '', '/models/', 'box.glb');
 
     meshTask.onSuccess = (task) => {
       task.loadedMeshes.forEach((mesh) => {
@@ -63,10 +57,12 @@ export default function BabylonCanvas() {
       });
     };
 
+    scene.onPointerObservable.add(onClickCanvas);
+
     setScene(scene);
 
     meshTask.onError = (task, message, exception) => {
-      console.error("모델 로드 실패:", message, exception);
+      console.error('모델 로드 실패:', message, exception);
     };
 
     assetsManager.load(); // 모델 로드 시작
@@ -95,10 +91,20 @@ export default function BabylonCanvas() {
   //   camera.radius = size * 1.5; // 거리 조정 (1.5배 정도 여유)
   // }
 
-  return (
-    <canvas
-      className="w-full h-full bg-black focus:outline-none"
-      ref={bablyonCanvasRef}
-    />
-  );
+  // Babylon에서 pointer event 처리
+
+  const onClickCanvas = (pointerInfo: BABYLON.PointerInfo) => {
+    if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN) {
+      const event = pointerInfo.event;
+      if (event.button === 2) {
+        console.log('우클릭 감지됨!');
+        // 여기에 우클릭 시 실행할 코드 작성
+        console.log(pointerInfo);
+      }
+    }
+  };
+
+  const onHoverModel = () => {};
+
+  return <canvas className="w-full h-full bg-black focus:outline-none" ref={bablyonCanvasRef} />;
 }
