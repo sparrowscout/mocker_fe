@@ -19,3 +19,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+#babylonjsLoadingDiv-0 {
+  display: none !important;
+}

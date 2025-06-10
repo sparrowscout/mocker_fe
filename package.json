@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -11,20 +11,36 @@
   "dependencies": {
     "@babylonjs/core": "^7.48.3",
     "@babylonjs/loaders": "^7.48.3",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
+    "babel-loader": "^10.0.0",
     "babylonjs": "^7.48.3",
+    "canvas": "^3.1.0",
+    "konva": "^9.3.20",
     "next": "15.1.7",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-konva": "^19.0.3",
+    "styled-components": "^6.1.18",
+    "use-image": "^1.1.2",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-typescript": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "@emotion/babel-plugin": "^11.13.5",
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "babel-plugin-macros": "^3.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "twin.macro": "^3.4.1",
     "typescript": "^5"
   }
 }
